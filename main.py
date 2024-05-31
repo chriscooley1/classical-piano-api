@@ -40,12 +40,22 @@ async def create_piece(piece: Piece) -> None:
     pieces.append(piece)
 
 @app.put("/composers/{composer_id}")
-async def update_composer(composer_id: int, composer: Composer):
-    pass
+async def update_composer(composer_id: int, updated_composer: Composer) -> None:
+    for i, composer in enumerate(composers):
+        if composer.composer_id == composer_id:
+            composers[i] = updated_composer
+            return updated_composer
+    composers.append(updated_composer)
+    return
 
 @app.put("/pieces/{piece_name}")
-async def update_piece(piece_name: str, piece: Piece):
-    pass
+async def update_piece(piece_name: str, updated_piece: Piece) -> None:
+    for i, piece in enumerate(pieces):
+        if piece.name == piece_name:
+            pieces[i] = updated_piece
+            return updated_piece
+    pieces.append(updated_piece)
+    return
 
 @app.delete("/composers/{composer_id}")
 async def delete_composer(composer_id: int):

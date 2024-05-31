@@ -58,9 +58,15 @@ async def update_piece(piece_name: str, updated_piece: Piece) -> None:
     return
 
 @app.delete("/composers/{composer_id}")
-async def delete_composer(composer_id: int):
-    pass
+async def delete_composer(composer_id: int) -> None:
+    for i, composer in enumerate(composers):
+        if composer.composer_id == composer_id:
+            composers.pop(i)
+            return
 
 @app.delete("/pieces/{piece_name}")
-async def delete_piece(piece_name: str):
-    pass
+async def delete_piece(piece_name: str) -> None:
+    for i, piece in enumerate(pieces):
+        if piece.name == piece_name:
+            pieces.pop(i)
+            return

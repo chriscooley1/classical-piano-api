@@ -50,7 +50,8 @@ async def update_composer(composer_id: int, updated_composer: Composer) -> Compo
                 raise HTTPException(status_code=400, detail="Duplicate ID passed in")
             composers[i] = updated_composer
             return updated_composer
-    raise HTTPException(status_code=404, detail="Composer not found")
+    composers.append(updated_composer)
+    return updated_composer
 
 @app.put("/pieces/{piece_name}")
 async def update_piece(piece_name: str, updated_piece: Piece) -> Piece:
@@ -60,7 +61,8 @@ async def update_piece(piece_name: str, updated_piece: Piece) -> Piece:
                 raise HTTPException(status_code=400, detail="Composer ID doesn't exist")
             pieces[i] = updated_piece
             return updated_piece
-    raise HTTPException(status_code=404, detail="Piece not found")
+    pieces.append(updated_piece)
+    return updated_piece
 
 @app.delete("/composers/{composer_id}")
 async def delete_composer(composer_id: int) -> None:
